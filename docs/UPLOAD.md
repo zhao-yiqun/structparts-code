@@ -17,7 +17,7 @@ Run these commands on the server containing the checkpoints. The existing CLI is
 
 The uploader verifies local SHA-256 hashes, uploads only `dit.safetensors`, `vae_decoder.safetensors`, `manifest.json`, and the model card as `README.md`, then verifies the remote weight hashes and sizes. It never scans or uploads the checkpoint directory recursively. DINOv2 is excluded.
 
-After successful upload, add the Hugging Face model URL and the download command from the model card to the inference README. Private model downloads require an authorized Hugging Face login.
+The inference README contains the Hugging Face model URL and download command. Private model downloads require an authorized Hugging Face login. Only describe an upload as complete after the uploader verifies the remote hashes and sizes.
 
 ## Server network setup
 
@@ -35,3 +35,15 @@ unset ALL_PROXY all_proxy NO_PROXY no_proxy
 ```
 
 Then run the login and upload commands above. Keep TLS certificate verification enabled. These settings apply to the current shell only; the local proxy must remain running during upload.
+
+### Alternate storage route on this server
+
+If Xet transfers stall, keep the API proxy settings above and use the HTTP storage path:
+
+```bash
+export HF_HUB_DISABLE_XET=1
+export HF_UPLOAD_STORAGE_PROXY=http://10.10.7.2:38893
+/public/home/yiqun/anaconda3/envs/eval_baselines/bin/python scripts/upload_weights.py
+```
+
+The optional storage proxy applies only to the official Hugging Face S3 upload host; other Hub requests keep using the API proxy. This route uploaded and remotely verified both artifacts on 2026-10-13. Omit these server-specific proxy settings on networks that connect normally.

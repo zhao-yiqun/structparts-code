@@ -30,7 +30,16 @@ Our release contains **two** weight artifacts:
 | `dit.safetensors` | Part diffusion transformer | 6.10 GB |
 | `vae_decoder.safetensors` | VAE mesh decoder | 0.43 GB |
 
-Place both files in `checkpoints/`. These two artifacts are BF16; `checkpoints/manifest.json` records their hashes. Model download links will be added when the release is public.
+Download our weights from [Goatzyq/structparts on Hugging Face](https://huggingface.co/Goatzyq/structparts): [DiT](https://huggingface.co/Goatzyq/structparts/resolve/main/dit.safetensors) and [VAE decoder](https://huggingface.co/Goatzyq/structparts/resolve/main/vae_decoder.safetensors). Place both files in `checkpoints/`. These two artifacts are BF16; `checkpoints/manifest.json` records their SHA-256 hashes.
+
+From the root of this inference repository:
+
+```bash
+python -m pip install "huggingface_hub>=0.34,<1.0"
+hf download Goatzyq/structparts dit.safetensors vae_decoder.safetensors manifest.json --local-dir checkpoints
+```
+
+During preparation, the model repository is private: authorized collaborators must first run `hf auth login`. After publication, public downloads will be available without that private-repository authorization. These files provide our diffusion transformer and VAE decoder only; download DINOv2 separately as described below.
 
 ### Download DINOv2 separately
 

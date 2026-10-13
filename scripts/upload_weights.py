@@ -1,6 +1,7 @@
 """Upload only StructParts weights and metadata to the private model repository."""
 import hashlib
 import json
+import os
 from pathlib import Path
 
 from huggingface_hub import CommitOperationAdd, HfApi, get_token, configure_http_backend
@@ -18,6 +19,9 @@ def main():
         raise SystemExit('Run hf auth login on this server first; a write token is required.')
     def backend_factory():
         session = requests.Session()
+        storage_proxy = os.environ.get('HF_UPLOAD_STORAGE_PROXY')
+        if storage_proxy:
+            session.proxies['https://hf-hub-lfs-us-east-1.s3-accelerate.amazonaws.com'] = storage_proxy
         retries = Retry(total=4, connect=4, read=4, other=4, backoff_factor=1,
                         allowed_methods=frozenset(['GET', 'HEAD']))
         session.mount('https://', HTTPAdapter(max_retries=retries))
