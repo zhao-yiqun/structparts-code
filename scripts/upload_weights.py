@@ -3,7 +3,10 @@ import hashlib
 import json
 from pathlib import Path
 
-from huggingface_hub import CommitOperationAdd, HfApi, get_token
+from huggingface_hub import CommitOperationAdd, HfApi, get_token, configure_http_backend
+import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 ROOT = Path(__file__).resolve().parents[1]
 REPO = 'Goatzyq/structparts'
@@ -13,6 +16,13 @@ WEIGHTS = ('dit.safetensors', 'vae_decoder.safetensors')
 def main():
     if not get_token():
         raise SystemExit('Run hf auth login on this server first; a write token is required.')
+    def backend_factory():
+        session = requests.Session()
+        retries = Retry(total=4, connect=4, read=4, other=4, backoff_factor=1,
+                        allowed_methods=frozenset(['GET', 'HEAD']))
+        session.mount('https://', HTTPAdapter(max_retries=retries))
+        return session
+    configure_http_backend(backend_factory=backend_factory)
     api = HfApi()
     info = api.model_info(REPO)
     if not info.private:
@@ -23,6 +33,7 @@ def main():
     operations = []
     for name in WEIGHTS:
         path = ROOT / 'checkpoints' / name
+        print(f'Checking {name}...', flush=True)
         digest = hashlib.sha256()
         with path.open('rb') as stream:
             for chunk in iter(lambda: stream.read(8 * 1024 * 1024), b''):
@@ -34,6 +45,7 @@ def main():
         CommitOperationAdd(path_in_repo='manifest.json', path_or_fileobj=str(ROOT / 'checkpoints/manifest.json')),
         CommitOperationAdd(path_in_repo='README.md', path_or_fileobj=str(ROOT / 'docs/model_card.md')),
     ])
+    print('Local hashes verified; uploading two weights and metadata...', flush=True)
     result = api.create_commit(repo_id=REPO, repo_type='model', operations=operations,
                                commit_message='Upload StructParts DiT and VAE decoder weights')
     uploaded = api.model_info(REPO, files_metadata=True)
