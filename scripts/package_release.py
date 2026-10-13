@@ -14,7 +14,7 @@ def main():
     args = parser.parse_args()
     # Explicit allowlist: never archive the checkpoints directory wholesale.
     files = [ROOT / name for name in ['README.md', 'requirements.txt', 'LICENSE', 'Notice.txt', 'infer.py']]
-    for directory in ['configs', 'structparts', 'scripts', 'licenses']:
+    for directory in ['configs', 'structparts', 'scripts', 'licenses', 'docs']:
         files.extend(p for p in (ROOT / directory).rglob('*')
                      if p.is_file() and '__pycache__' not in p.parts and p.suffix not in ['.pyc', '.pth', '.bin', '.safetensors'])
     files.append(ROOT / 'checkpoints/manifest.json')
