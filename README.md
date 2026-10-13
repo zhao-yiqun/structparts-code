@@ -2,10 +2,12 @@
 
 **Seeing Both the Forest and the Trees: Reusing Holistic 3D Priors for Part-Decomposed Generation**
 
-Yiqun Zhao¹˒², Binbin Huang¹˒², Haobin Duan¹˒², Zibo Zhao³, Shenghua Gao²˒⁴
+Yiqun Zhao¹˒², Binbin Huang¹˒², Haobin Duan¹˒², Zibo Zhao³, Shenghua Gao²˒⁴*
 
 ¹ The University of Hong Kong · ² Transengram
-³ Tencent Hunyuan · ⁴ Shenzhen Loop Area Institute
+³ Tencent · ⁴ Shenzhen Loop Area Institute
+
+*Corresponding author: Shenghua Gao.*
 
 ## Inference release
 
@@ -93,3 +95,7 @@ Notice.txt
 ```
 
 The model code derives from the existing StructParts / UltraShape / Hunyuan3D implementation. Original copyright and license notices are retained in `LICENSE`, `Notice.txt` and source headers. DINOv2 is used through Transformers; its model license is [Apache 2.0](https://github.com/facebookresearch/dinov2/blob/main/LICENSE), included in `licenses/DINOv2-Apache-2.0.txt`.
+
+## Acknowledgments
+
+We thank [Hunyuan3D-2.1](https://github.com/Tencent-Hunyuan/Hunyuan3D-2.1) and [UltraShape-1.0](https://github.com/PKU-YuanGroup/UltraShape-1.0) for their open-source models and implementations, which our work builds upon. Original license and copyright notices are retained in the inference code.
