@@ -2,6 +2,8 @@
 
 **Seeing Both the Forest and the Trees: Reusing Holistic 3D Priors for Part-Decomposed Generation**
 
+**NeurIPS 2026**
+
 Yiqun Zhao¹˒², Binbin Huang¹˒², Haobin Duan¹˒², Zibo Zhao³, Shenghua Gao¹˒²˒⁴*
 
 ¹ The University of Hong Kong · ² Transengram
@@ -99,3 +101,15 @@ The model code derives from the existing StructParts / UltraShape / Hunyuan3D im
 ## Acknowledgments
 
 We thank [Hunyuan3D-2.1](https://github.com/Tencent-Hunyuan/Hunyuan3D-2.1) and [UltraShape-1.0](https://github.com/PKU-YuanGroup/UltraShape-1.0) for their open-source models and implementations, which our work builds upon. Original license and copyright notices are retained in the inference code.
+
+## Citation
+
+```bibtex
+@inproceedings{zhao2026structparts,
+  title = {Seeing Both the Forest and the Trees: Reusing Holistic 3D Priors for Part-Decomposed Generation},
+  author = {Zhao, Yiqun and Huang, Binbin and Duan, Haobin and Zhao, Zibo and Gao, Shenghua},
+  booktitle = {Advances in Neural Information Processing Systems},
+  year = {2026},
+  url = {https://zhao-yiqun.github.io/structparts/}
+}
+```

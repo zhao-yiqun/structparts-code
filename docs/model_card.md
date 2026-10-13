@@ -12,6 +12,8 @@ tags:
 
 Yiqun Zhao, Binbin Huang, Haobin Duan, Zibo Zhao, Shenghua Gao (corresponding author).
 
+**NeurIPS 2026**
+
 [Project page](https://zhao-yiqun.github.io/structparts/) · [Inference code and setup](https://github.com/zhao-yiqun/structparts-code)
 
 ## Weights
