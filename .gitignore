@@ -4,3 +4,7 @@ __pycache__/
 results/
 checkpoints/*.safetensors
 checkpoints/*.tmp
+checkpoints/dinov2-large/
+checkpoints/**/*.safetensors
+checkpoints/**/*.bin
+checkpoints/**/*.pth

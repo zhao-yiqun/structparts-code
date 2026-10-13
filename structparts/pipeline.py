@@ -20,12 +20,25 @@ def load_models(config, root, device):
     for name, factory in factories.items():
         path = Path(root) / config['weights'][name]
         if not path.is_file():
+            if name == 'conditioner':
+                raise FileNotFoundError(
+                    f'Missing user-provided DINOv2 weights: {path}. '
+                    'Run python scripts/download_dinov2.py from the release directory; '
+                    'see README.md for the official download source. '
+                    'DINOv2 weights are not bundled with StructParts.'
+                )
             raise FileNotFoundError(f'Missing {name} weights: {path}')
         print(f'Loading {name}: {path.name}', flush=True)
         with init_empty_weights(include_buffers=False):
             model = factory()
         target = model.model if name == 'conditioner' else model
-        target.load_state_dict(load_file(str(path), device='cpu'), strict=True, assign=True)
+        state = load_file(str(path), device='cpu')
+        if name == 'conditioner':
+            # The original frozen encoder was loaded as FP16 before the final
+            # checkpoint became BF16. Preserve that rounding with upstream FP32
+            # weights rather than redistributing the embedded encoder copy.
+            state = {key: value.to(torch.float16) for key, value in state.items()}
+        target.load_state_dict(state, strict=True, assign=True)
         model = model.eval().requires_grad_(False).to(device=device, dtype=torch.bfloat16)
         models[name] = model
     return models

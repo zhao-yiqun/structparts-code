@@ -1,4 +1,13 @@
-# StructParts inference
+# StructParts
+
+**Seeing Both the Forest and the Trees: Reusing Holistic 3D Priors for Part-Decomposed Generation**
+
+Yiqun Zhao¹˒², Binbin Huang¹˒², Haobin Duan¹˒², Zibo Zhao³, Shenghua Gao²˒⁴
+
+¹ The University of Hong Kong · ² Transengram
+³ Tencent Hunyuan · ⁴ Shenzhen Loop Area Institute
+
+## Inference release
 
 Minimal image-conditioned part generation from a segmented 3D scaffold. The input segmentation and 2D foreground mask are supplied by the user. This repository contains the inference model, preprocessing, mesh decoder and one configuration.
 
@@ -10,15 +19,28 @@ Use Python 3.10 and a CUDA GPU supporting BF16. Install the CUDA build of PyTorc
 python -m pip install -r requirements.txt
 ```
 
-The three weight files belong in `checkpoints/`:
+Our release contains **two** weight artifacts:
 
 | File | Component | Size |
 | --- | --- | --- |
 | `dit.safetensors` | Part diffusion transformer | 6.10 GB |
-| `dino.safetensors` | DINOv2-large image encoder | 0.61 GB |
 | `vae_decoder.safetensors` | VAE mesh decoder | 0.43 GB |
 
-All weights are BF16. They load locally without a Hugging Face download. `checkpoints/manifest.json` records their SHA-256 hashes. Keep weights as separate model artifacts when uploading the code repository; the `.gitignore` excludes large weight files from Git.
+Place both files in `checkpoints/`. These two artifacts are BF16; `checkpoints/manifest.json` records their hashes. Model download links will be added when the release is public.
+
+### Download DINOv2 separately
+
+**We do not distribute DINOv2 checkpoints, including converted or embedded copies in release packages.** Obtain the **DINOv2-large / ViT-L/14 model without registers** directly from [Meta's upstream repository](https://github.com/facebookresearch/dinov2#pretrained-models). This implementation uses the Transformers-format weights from [facebook/dinov2-large](https://huggingface.co/facebook/dinov2-large).
+
+Download the compatible upstream revision yourself:
+
+```bash
+python scripts/download_dinov2.py
+```
+
+The helper fetches `config.json` and `model.safetensors` directly from `facebook/dinov2-large` at revision `47b73eefe95e8d44ec3623f8890bd894b6ea2d6c`, placing them in `checkpoints/dinov2-large/`. Alternatively, download these two files from the model repository and place them there manually. The original PyTorch-Hub `.pth` file uses a different key format and cannot simply be renamed to `.safetensors`.
+
+Inference strictly loads the user-downloaded `checkpoints/dinov2-large/model.safetensors` locally and follows the original FP32 → FP16 → BF16 conversion for the frozen encoder. This reproduces all 439 encoder tensors from the original checkpoint exactly. It does not download weights during inference. The existing preprocessing is retained. The DINOv2 directory is Git-ignored, and `scripts/package_release.py` excludes its weights even when `--include-weights` is used.
 
 PyTorch SDPA works without FlashAttention. If installed, FlashAttention 3 is selected on Hopper GPUs, otherwise FlashAttention 2 is used when available. Set `--attention sdpa` to force PyTorch attention. For the original GPU surface extractor, install `cubvh` with `sparse_marching_cubes` support. Without it, the decoder uses scikit-image marching cubes, whose triangulation can differ.
 
@@ -64,7 +86,7 @@ python infer.py --check-weights --device cpu
 infer.py                   # command-line entry
 configs/inference.yaml     # inference parameters
 structparts/               # preprocessing, sampling and required model code
-checkpoints/               # three standalone weight files and hash manifest
+checkpoints/               # our two artifacts; user downloads DINOv2 into a separate ignored subdirectory
 requirements.txt
 LICENSE
 Notice.txt

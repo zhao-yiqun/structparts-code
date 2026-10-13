@@ -5,12 +5,6 @@
     "tensors": 753,
     "dtype": "bfloat16"
   },
-  "dino.safetensors": {
-    "sha256": "2863b7b0d9ebaf4241a81dc4ca1c1d6627dab6372f604bab9878286896e0e22d",
-    "bytes": 608785856,
-    "tensors": 439,
-    "dtype": "bfloat16"
-  },
   "vae_decoder.safetensors": {
     "sha256": "51f5c8d21209c958b737bd8ca52a68c67a748598dce362e58f7a11c2d8968bb3",
     "bytes": 428456010,

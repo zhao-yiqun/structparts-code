@@ -1,6 +1,7 @@
 weights:
   dit: checkpoints/dit.safetensors
-  conditioner: checkpoints/dino.safetensors
+  # User downloads this file from facebook/dinov2-large; never bundled in our release.
+  conditioner: checkpoints/dinov2-large/model.safetensors
   vae: checkpoints/vae_decoder.safetensors
 dit:
   input_size: 1024
