@@ -23,8 +23,6 @@ Minimal image-conditioned part generation from a segmented 3D scaffold. The inpu
 
 StructParts reuses a holistic 3D prior through dual-frame coordinate interleaving to combine detail within each part with coherence across the whole object.
 
-![StructParts generation pipeline](assets/pipeline.webp)
-
 ## Setup
 
 Clone the repository:
@@ -117,7 +115,7 @@ infer.py                   # command-line entry
 configs/inference.yaml     # inference parameters
 structparts/               # preprocessing, sampling and required model code
 checkpoints/               # our two artifacts; user downloads DINOv2 into a separate ignored subdirectory
-assets/                    # teaser and pipeline figures
+assets/                    # teaser and figure assets
 requirements.txt
 LICENSE
 Notice.txt
