@@ -110,22 +110,6 @@ python infer.py --input-dir /path/to/object --prepare-only
 python infer.py --check-weights --device cpu
 ```
 
-## Results
-
-The figures below are exported from the PDFs used by the paper, respecting their saved crop boxes. `assets/figure-sources.json` records their sources and hashes.
-
-![Image-conditioned part generation and detail comparisons](assets/image-to-shape.webp)
-
-![Part-decomposed generation comparisons](assets/comparison.webp)
-
-### Part-mesh refinement
-
-![Part-mesh refinement from a coarse scaffold](assets/refinement.webp)
-
-### Part-level editing
-
-![Part merging and splitting examples](assets/editing.webp)
-
 ## Layout
 
 ```text
@@ -133,7 +117,7 @@ infer.py                   # command-line entry
 configs/inference.yaml     # inference parameters
 structparts/               # preprocessing, sampling and required model code
 checkpoints/               # our two artifacts; user downloads DINOv2 into a separate ignored subdirectory
-assets/                    # paper figures displayed in this README
+assets/                    # teaser and pipeline figures
 requirements.txt
 LICENSE
 Notice.txt
