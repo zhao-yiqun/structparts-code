@@ -1,0 +1,92 @@
+{
+  "pipeline": {
+    "latex_source": "figures/Pipeline.tex",
+    "pdf_source": "figures/Pipeline.pdf",
+    "pdf_sha256": "a8b7380f899e5506168d5a8ee7b20b2d6f22fff980a1c3b3d059072275e7c519",
+    "cropbox_points": [
+      36.59,
+      168.19,
+      743.1,
+      513.47
+    ],
+    "output": "assets/pipeline.webp",
+    "size_pixels": [
+      2400,
+      1173
+    ],
+    "sha256": "8f037081c161f1a25d29e067b7666ff12f1c2eafc0f0896dfb3005850188ab36",
+    "renderer": "pdftoppm -f 1 -singlefile -cropbox -scale-to 2400 -png"
+  },
+  "image-to-shape": {
+    "latex_source": "figures/Image-to-parts.tex",
+    "pdf_source": "figures/Image_to_shape.pdf",
+    "pdf_sha256": "b70a8e39f26d39c9b4cf90a9825625e48bc48e7f69e7f5c83d0eb27479cf0251",
+    "cropbox_points": [
+      131.71,
+      177.47,
+      707.44,
+      496.99
+    ],
+    "output": "assets/image-to-shape.webp",
+    "size_pixels": [
+      2400,
+      1332
+    ],
+    "sha256": "e834cb0c7c002bfc61be1003d041fc4d8ade26653a8dbf4dc3f6528a40a4234f",
+    "renderer": "pdftoppm -f 1 -singlefile -cropbox -scale-to 2400 -png"
+  },
+  "comparison": {
+    "latex_source": "figures/Part_decompos.tex",
+    "pdf_source": "figures/Main_expv3.pdf",
+    "pdf_sha256": "91ba63d7914600318409258d0204fc0f1e9723e80cdaacfd83d21984b866b31b",
+    "cropbox_points": [
+      180.31,
+      212.28,
+      620.65,
+      474.6
+    ],
+    "output": "assets/comparison.webp",
+    "size_pixels": [
+      2400,
+      1430
+    ],
+    "sha256": "78731e953b0c7d22429306f08307fef0a5af547ccb318381f5375c5a83f02608",
+    "renderer": "pdftoppm -f 1 -singlefile -cropbox -scale-to 2400 -png"
+  },
+  "refinement": {
+    "latex_source": "figures/refine_edit.tex",
+    "pdf_source": "figures/Mesh_refinement.pdf",
+    "pdf_sha256": "7189ccb381cadbc316ffaa1fc2f16094cd09cfee57d0803d4bbfe6d57c73fb2f",
+    "cropbox_points": [
+      101.03,
+      206.47,
+      666.94,
+      497.41
+    ],
+    "output": "assets/refinement.webp",
+    "size_pixels": [
+      2400,
+      1234
+    ],
+    "sha256": "42cd59d694c92abf3f7f5041596547611fc004aea7bda467d6053e7137483d05",
+    "renderer": "pdftoppm -f 1 -singlefile -cropbox -scale-to 2400 -png"
+  },
+  "editing": {
+    "latex_source": "figures/refine_edit.tex",
+    "pdf_source": "figures/Editing.pdf",
+    "pdf_sha256": "39cc2d09e052b0b9f40005231754c1f72cc4a742ad65ac117a3db376f5a5409c",
+    "cropbox_points": [
+      117.5,
+      114.86,
+      512.15,
+      407.38
+    ],
+    "output": "assets/editing.webp",
+    "size_pixels": [
+      2400,
+      1779
+    ],
+    "sha256": "1b463a7cc3536462400249b2af21df24f1e0377b102ca20cd40e01803f6b92d0",
+    "renderer": "pdftoppm -f 1 -singlefile -cropbox -scale-to 2400 -png"
+  }
+}

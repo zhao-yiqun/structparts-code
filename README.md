@@ -4,6 +4,8 @@
 
 **NeurIPS 2026**
 
+[Project page](https://zhao-yiqun.github.io/structparts/) · [Model weights](https://huggingface.co/Goatzyq/structparts) · [Citation](#citation)
+
 Yiqun Zhao¹˒², Binbin Huang¹˒², Haobin Duan¹˒², Zibo Zhao³, Shenghua Gao¹˒²˒⁴*
 
 ¹ The University of Hong Kong · ² Transengram
@@ -11,11 +13,26 @@ Yiqun Zhao¹˒², Binbin Huang¹˒², Haobin Duan¹˒², Zibo Zhao³, Shenghua G
 
 *Corresponding author: Shenghua Gao.*
 
+[![StructParts teaser: detailed part-decomposed 3D objects](assets/teaser.webp)](https://zhao-yiqun.github.io/structparts/)
+
+Watch the 24-second teaser film on the project page.
+
 ## Inference release
 
 Minimal image-conditioned part generation from a segmented 3D scaffold. The input segmentation and 2D foreground mask are supplied by the user. This repository contains the inference model, preprocessing, mesh decoder and one configuration.
 
+StructParts reuses a holistic 3D prior through dual-frame coordinate interleaving to combine detail within each part with coherence across the whole object.
+
+![StructParts generation pipeline](assets/pipeline.webp)
+
 ## Setup
+
+Clone the repository:
+
+```bash
+git clone https://github.com/zhao-yiqun/structparts-code.git
+cd structparts-code
+```
 
 Use Python 3.10 and a CUDA GPU supporting BF16. Install the CUDA build of PyTorch appropriate for your system, then install the remaining dependencies:
 
@@ -93,6 +110,22 @@ python infer.py --input-dir /path/to/object --prepare-only
 python infer.py --check-weights --device cpu
 ```
 
+## Results
+
+The figures below are exported from the PDFs used by the paper, respecting their saved crop boxes. `assets/figure-sources.json` records their sources and hashes.
+
+![Image-conditioned part generation and detail comparisons](assets/image-to-shape.webp)
+
+![Part-decomposed generation comparisons](assets/comparison.webp)
+
+### Part-mesh refinement
+
+![Part-mesh refinement from a coarse scaffold](assets/refinement.webp)
+
+### Part-level editing
+
+![Part merging and splitting examples](assets/editing.webp)
+
 ## Layout
 
 ```text
@@ -100,6 +133,7 @@ infer.py                   # command-line entry
 configs/inference.yaml     # inference parameters
 structparts/               # preprocessing, sampling and required model code
 checkpoints/               # our two artifacts; user downloads DINOv2 into a separate ignored subdirectory
+assets/                    # paper figures displayed in this README
 requirements.txt
 LICENSE
 Notice.txt
